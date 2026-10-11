@@ -1,0 +1,38 @@
+manifestVersion: 1
+id: tasiomind-neo4j
+storage:
+  dataRoot: data
+category: developer
+name: Neo4j (tasiomind)
+version: "5.26.31"
+port: 7474
+tagline: Graph database for your AI second brain
+description: >-
+  Neo4j is a native graph database — the storage backbone for knowledge graphs,
+  AI second-brain setups (e.g. Graphiti), and highly connected data.
+
+
+  This package ships the Neo4j 5.26 LTS Community Edition. The browser UI is
+  served on the app port. On first install a random admin password is generated
+  automatically (see "Known limitations" in the store README for retrieval).
+
+
+  ⚠️ The Bolt protocol port (7687) is intentionally NOT published to the host
+  (no unjustified host-port exposure). Apps inside this Umbrel app's network
+  reach Bolt at tasiomind-neo4j_neo4j_1:7687. External Bolt access requires an
+  explicit, self-managed port mapping.
+developer: Neo4j, Inc.
+website: https://neo4j.com
+submitter: amariwan
+repo: https://github.com/neo4j/neo4j
+support: https://github.com/neo4j/neo4j/issues
+submission: https://github.com/amariwan/umbrel-community-app-store
+gallery:
+  - https://github.com/neo4j.png
+dependencies: []
+releaseNotes: >-
+  Initial tasiomind release tracking upstream Neo4j 5.26.31 LTS (Community).
+  See https://github.com/neo4j/neo4j/releases for upstream notes.
+path: ""
+defaultUsername: "neo4j"
+defaultPassword: ""

@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: tasiomind-neo4j_neo4j_1
+      APP_PORT: 7474
+
+  neo4j:
+    # Pinned LTS release; digest makes the deployment reproducible.
+    # Community Edition (no license key required). Bump via Renovate PR only.
+    image: neo4j:5.26.31-community@sha256:c7d25c0eeebfe125718d58b72ed5d663c85d0479047733845eb2237c67ce8069
+    # Run as the standard umbrel app user so ${APP_DATA_DIR} stays writable
+    # without privileged containers or host ownership hacks.
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 1m
+    environment:
+      # Credentials are generated at install time (see exports.sh) — never hardcoded.
+      - NEO4J_AUTH=neo4j/${APP_TASIOMIND_NEO4J_PASSWORD}
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_dbms_memory_heap_initial__size=512m
+      - NEO4J_dbms_memory_heap_max__size=1G
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+      - ${APP_DATA_DIR}/logs:/logs

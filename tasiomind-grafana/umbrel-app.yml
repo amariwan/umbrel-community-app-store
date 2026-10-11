@@ -1,0 +1,30 @@
+manifestVersion: 1
+id: tasiomind-grafana
+storage:
+  dataRoot: data
+name: Grafana (tasiomind)
+tagline: The open-source platform for monitoring and observability
+category: networking
+version: "13.2.3"
+port: 3030
+description: >-
+  Grafana allows you to query, visualize, alert on and understand your metrics
+  no matter where they are stored. Create, explore, and share dashboards with
+  your team and foster a data-driven culture: visualizations, dynamic dashboards,
+  metrics and log exploration, alerting, and mixed data sources.
+developer: Grafana Labs
+website: https://grafana.com
+repo: https://github.com/grafana/grafana
+support: https://grafana.com/help/
+gallery:
+  - https://raw.githubusercontent.com/grafana/grafana/main/public/img/grafana_icon.svg
+releaseNotes: >-
+  Tracks upstream v13.2.3, which includes security fixes for CVE-2026-13719,
+  CVE-2026-13720, and CVE-2026-81841.
+  Full release notes: https://github.com/grafana/grafana/releases/tag/v13.2.3
+submitter: amariwan
+submission: https://github.com/amariwan/umbrel-community-app-store
+dependencies: []
+path: ""
+defaultUsername: "admin"
+defaultPassword: "admin"

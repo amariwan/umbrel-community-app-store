@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: tasiomind-anythingllm_app_1
+      APP_PORT: 3001
+
+  app:
+    # Pinned upstream release; digest makes the deployment reproducible.
+    # Bump via Renovate PR only (see renovate.json).
+    image: mintplexlabs/anythingllm:1.17.0@sha256:f26f30df46916b6e953e3a47ca98f48817726e3df635e62d4bfdd133292ecfff
+    restart: on-failure
+    user: "1000:1000"
+    # SYS_ADMIN is required by AnythingLLM's document collector (Chromium sandbox),
+    # same as the official Umbrel packaging. No other added capabilities.
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      SERVER_PORT: 3001
+      STORAGE_DIR: /app/server/storage
+      UID: 1000
+      GID: 1000
+      DISABLE_TELEMETRY: "true"
+      JWT_SECRET: ${APP_TASIOMIND_ANYTHINGLLM_JWT_SECRET}
+      SIG_KEY: ${APP_TASIOMIND_ANYTHINGLLM_SIG_KEY}
+      SIG_SALT: ${APP_TASIOMIND_ANYTHINGLLM_SIG_SALT}
+    volumes:
+      - ${APP_DATA_DIR}/data/.env:/app/server/.env
+      - ${APP_DATA_DIR}/data/server-storage:/app/server/storage
+      - ${APP_DATA_DIR}/data/collector-hotdir:/app/collector/hotdir
+      - ${APP_DATA_DIR}/data/collector-outputs:/app/collector/outputs
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

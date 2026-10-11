@@ -1,0 +1,33 @@
+manifestVersion: 1
+id: tasiomind-anythingllm
+category: ai
+name: AnythingLLM (tasiomind)
+version: "1.17.0"
+port: 3031
+tagline: AI workspace for chat, documents, and agents
+description: >-
+  AnythingLLM is a self-hosted AI workspace for chatting with LLMs, building
+  knowledge bases from your documents, and creating custom AI agents.
+
+
+  It supports OpenAI, Anthropic, Gemini, Ollama, LocalAI, OpenRouter, and many
+  other model providers, with local storage for conversations, workspaces,
+  documents, vector indexes, and provider settings.
+
+
+  Pairs well with the tasiomind-ollama app in this store for fully local models.
+developer: Mintplex Labs
+website: https://anythingllm.com
+submitter: amariwan
+repo: https://github.com/Mintplex-Labs/anything-llm
+support: https://github.com/Mintplex-Labs/anything-llm/issues
+submission: https://github.com/amariwan/umbrel-community-app-store
+gallery:
+  - https://github.com/Mintplex-Labs.png
+dependencies: []
+releaseNotes: >-
+  Tracks upstream v1.17.0.
+  Full release notes: https://github.com/Mintplex-Labs/anything-llm/releases/tag/v1.17.0
+path: ""
+defaultUsername: ""
+defaultPassword: ""

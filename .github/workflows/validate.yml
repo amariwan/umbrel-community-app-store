@@ -1,0 +1,55 @@
+name: Validate store
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Manifest, compose and policy checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run store validator
+        run: python3 scripts/validate.py
+
+      - name: Validate docker-compose files
+        run: |
+          set -euo pipefail
+          for dir in tasiomind-*/; do
+            app="${dir%/}"
+            echo "--- compose config: ${app} ---"
+            # umbrelOS injects the app_proxy service at runtime (no image), so it is
+            # stripped before plain `docker compose config` validation.
+            python3 -c "
+          import yaml
+          d = yaml.safe_load(open('${app}/docker-compose.yml'))
+          d['services'].pop('app_proxy', None)
+          yaml.safe_dump(d, open('/tmp/${app}.compose.yml', 'w'))
+          "
+            APP_DATA_DIR="/tmp/umbrel-app-data/${app}" \
+            DEVICE_DOMAIN_NAME="umbrel.local" \
+            APP_TASIOMIND_NEO4J_PASSWORD="ci-placeholder-0123456789abcdef" \
+            APP_TASIOMIND_ANYTHINGLLM_JWT_SECRET="ci-placeholder-jwt-secret-0123456789" \
+            APP_TASIOMIND_ANYTHINGLLM_SIG_KEY="ci-placeholder-sig-key-0123456789abcdef0123456789abcdef" \
+            APP_TASIOMIND_ANYTHINGLLM_SIG_SALT="ci-placeholder-sig-salt-0123456789abcdef0123456789abcdef" \
+            docker compose -f "/tmp/${app}.compose.yml" config --quiet
+          done
+
+      - name: Validate renovate config
+        run: |
+          python3 -c "import json; json.load(open('renovate.json')); print('renovate.json is valid JSON')"

@@ -1,17 +1,68 @@
-## Umbrel Community App Store Template
+# tasiomind App Store for umbrelOS
 
-This repository is a template to create an Umbrel Community App Store. These additional app stores allow developers to distribute applications without submitting to the [Official Umbrel App Store](https://github.com/getumbrel/umbrel-apps).
+Community App Store for [umbrelOS](https://umbrel.com) 2.x — a small, curated,
+low-maintenance set of self-hosted apps: local AI, automation, and monitoring.
 
-## How to use:
+- Store ID: `tasiomind` · Store name: `tasiomind` · App prefix: `tasiomind-`
+- Repository: https://github.com/amariwan/umbrel-community-app-store
+- Upstream template state and pinned versions: see [UPSTREAM.md](UPSTREAM.md)
+- App research (incl. rejected candidates): see [docs/APPS.md](docs/APPS.md)
+- Validation results + hardware-test status: see [docs/TESTING.md](docs/TESTING.md)
 
-1. Start by clicking the "Use this template" button located above.
-2. Assign an ID and name to your app store within the `umbrel-app-store.yml` file. This file specifies two important attributes:
-    - `id` - Acts as a unique prefix for every app within your Community App Store. You must start your application's ID with your app store's ID. For instance, in this template, the app store ID is `sparkles`, and there's an app named `hello world`. Consequently, the app's ID should be: `sparkles-hello-world`.
-    - `name` - This is the name of the Community App Store displayed in the umbrelOS UI.
-3. Change the name of the `sparkles-hello-world` folder to match your app's ID. The app ID is for you to decide. For example, if your app store ID is `whistles`, and your app is named My Video Downloader, you could set its app ID to `whistles-my-video-downloader`, and rename the folder accordingly.
-4. Next, enter your app's listing details in the `whistles-my-video-downloader/umbrel-app.yml`. These are displayed in the umbrelOS UI.
-5. Include the necessary Docker services in `whistles-my-video-downloader/docker-compose.yml`.
-6. That's it! Your Community App Store, featuring your unique app, is now set up and ready to go. To use your Community App Store, you can add its GitHub url the umbrelOS user interface as shown in the following demo:
+## Apps
 
+| App | What | UI port |
+|---|---|---|
+| tasiomind-n8n | Workflow automation (fair-code) | 5678 |
+| tasiomind-anythingllm | AI workspace: chat, docs, agents | 3031 |
+| tasiomind-ollama | Local LLM runtime (DeepSeek-R1, Llama, …) | 11434 |
+| tasiomind-grafana | Monitoring dashboards (default login `admin`/`admin` — change it) | 3030 |
+| tasiomind-uptime-kuma | Uptime monitoring, 70+ notifiers | 8385 |
+| tasiomind-neo4j | Graph database (5.26 LTS Community, incl. APOC) | 7474 |
 
-https://user-images.githubusercontent.com/10330103/197889452-e5cd7e96-3233-4a09-b475-94b754adc7a3.mp4
+## Installation
+
+1. Open your umbrelOS dashboard → **App Store → … → Community App Stores**
+   (or **Settings**, depending on your umbrelOS version).
+2. Add this URL: `https://github.com/amariwan/umbrel-community-app-store`
+3. The **tasiomind App Store** appears alongside the official store.
+4. Install any app with one click. Start light (e.g. Uptime Kuma) on small devices;
+   Ollama model choice must fit your device RAM.
+
+## Updates
+
+- [Renovate](renovate.json) opens PRs for container and manifest updates every weekend.
+  Patch/minor/security PRs merge manually after CI; **major upgrades never merge
+  without a compatibility check** (umbrelOS 2.x conventions + data persistence).
+- Every push/PR runs manifest, policy, and compose validation
+  (`.github/workflows/validate.yml`, `scripts/validate.py`).
+- All images are digest-pinned — no floating `latest` tags.
+
+## Security and conventions
+
+- Official Umbrel app conventions: `app_proxy` routing, `${APP_DATA_DIR}` persistence,
+  `exports.sh` + `derive_entropy` for generated secrets — **no hardcoded secrets**.
+- No privileged containers, no host networking, no host-port publishing.
+  Exception: AnythingLLM keeps the official packaging's `SYS_ADMIN` capability for its
+  document collector (Chromium sandbox), enforced by the validator allowlist.
+- Data directories are never overwritten; upgrades keep `${APP_DATA_DIR}` volumes.
+
+## Known limitations
+
+- **Neo4j Bolt (7687) is not exposed to the LAN** — browser UI works via the dashboard,
+  and in-app consumers reach Bolt at `tasiomind-neo4j_neo4j_1:7687`. External drivers need
+  a self-managed port mapping.
+- **Neo4j admin password is auto-generated** on install. Retrieve it on the device, e.g.
+  via the app's runtime environment (`NEO4J_AUTH`), or back up `${APP_DATA_DIR}` regularly.
+- **Grafana ships with default credentials `admin`/`admin`** (upstream convention) —
+  change them on first login.
+- **Ollama model RAM**: check model requirements first; oversized models can hang small devices.
+- Gallery images are upstream project logos as placeholders until on-device screenshots exist.
+- **No on-device install test has been performed yet** (see [docs/TESTING.md](docs/TESTING.md)).
+  umbrelOS 2.x compatibility follows from official-packaging reuse, not from a device run.
+
+## Contributing
+
+Proposals via GitHub issues. New apps must satisfy `scripts/validate.py` and the
+selection rule in [docs/APPS.md](docs/APPS.md): genuinely installable on umbrelOS 2.x,
+pinned digests, documented persistence. Major version bumps must note the compat check.

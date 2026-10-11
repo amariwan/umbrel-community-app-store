@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  app_proxy:
+    environment:
+      APP_HOST: tasiomind-grafana_web_1
+      APP_PORT: 3000
+      PROXY_AUTH_WHITELIST: "/api/*"
+
+  web:
+    # Pinned upstream release; digest makes the deployment reproducible.
+    # Bump via Renovate PR only (see renovate.json).
+    image: grafana/grafana:13.2.3@sha256:b28bae15e219c998fb0e0424ed724930cc61b1f61fb404d47c862f9a23f9e572
+    user: 1000:1000
+    environment:
+      GF_PLUGINS_PREINSTALL_AUTO_UPDATE: "false"
+    restart: on-failure
+    volumes:
+      - ${APP_DATA_DIR}/data:/var/lib/grafana

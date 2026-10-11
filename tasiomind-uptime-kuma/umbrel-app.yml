@@ -1,0 +1,32 @@
+manifestVersion: 1
+id: tasiomind-uptime-kuma
+storage:
+  dataRoot: data
+category: networking
+name: Uptime Kuma (tasiomind)
+version: "2.5.5"
+tagline: Self-hosted uptime monitoring tool
+description: >-
+  Uptime Kuma is a self-hosted monitoring tool like Uptime Robot.
+
+
+  Features: monitoring uptime for HTTP(s) / TCP / Keyword / Ping / DNS / Push /
+  Steam Game Server; fancy reactive UI; notifications via 70+ services
+  (Telegram, Discord, Slack, Email, …); 20-second intervals; status pages;
+  ping charts; certificate info.
+developer: Louis Lam
+website: https://uptime.kuma.pet
+dependencies: []
+repo: https://github.com/louislam/uptime-kuma
+support: https://github.com/louislam/uptime-kuma/issues
+port: 8385
+gallery:
+  - https://raw.githubusercontent.com/louislam/uptime-kuma/master/public/icon.svg
+path: ""
+defaultUsername: ""
+defaultPassword: ""
+releaseNotes: >-
+  Tracks upstream 2.5.5.
+  Full release notes: https://github.com/louislam/uptime-kuma/releases/tag/2.5.5
+submitter: amariwan
+submission: https://github.com/amariwan/umbrel-community-app-store
