@@ -33,41 +33,6 @@
   ],
   "regexManagers": [
     {
-      "description": "Keep tasiomind-n8n manifest version in sync with the n8n container.",
-      "fileMatch": ["(^|/)tasiomind-n8n/umbrel-app\\.yml$"],
-      "matchStrings": ["version: \"(?<currentValue>[^\"]+)\""],
-      "depNameTemplate": "n8nio/n8n",
-      "datasourceTemplate": "docker"
-    },
-    {
-      "description": "Keep tasiomind-anythingllm manifest version in sync with the AnythingLLM container.",
-      "fileMatch": ["(^|/)tasiomind-anythingllm/umbrel-app\\.yml$"],
-      "matchStrings": ["version: \"(?<currentValue>[^\"]+)\""],
-      "depNameTemplate": "mintplexlabs/anythingllm",
-      "datasourceTemplate": "docker"
-    },
-    {
-      "description": "Keep tasiomind-ollama manifest version in sync with the Ollama container.",
-      "fileMatch": ["(^|/)tasiomind-ollama/umbrel-app\\.yml$"],
-      "matchStrings": ["version: \"(?<currentValue>[^\"]+)\""],
-      "depNameTemplate": "ollama/ollama",
-      "datasourceTemplate": "docker"
-    },
-    {
-      "description": "Keep tasiomind-grafana manifest version in sync with the Grafana container.",
-      "fileMatch": ["(^|/)tasiomind-grafana/umbrel-app\\.yml$"],
-      "matchStrings": ["version: \"(?<currentValue>[^\"]+)\""],
-      "depNameTemplate": "grafana/grafana",
-      "datasourceTemplate": "docker"
-    },
-    {
-      "description": "Keep tasiomind-uptime-kuma manifest version in sync with the Uptime Kuma container.",
-      "fileMatch": ["(^|/)tasiomind-uptime-kuma/umbrel-app\\.yml$"],
-      "matchStrings": ["version: \"(?<currentValue>[^\"]+)\""],
-      "depNameTemplate": "louislam/uptime-kuma",
-      "datasourceTemplate": "docker"
-    },
-    {
       "description": "Keep tasiomind-neo4j manifest version in sync with the Neo4j LTS container.",
       "fileMatch": ["(^|/)tasiomind-neo4j/umbrel-app\\.yml$"],
       "matchStrings": ["version: \"(?<currentValue>[^\"]+)\""],

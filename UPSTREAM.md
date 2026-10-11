@@ -16,11 +16,11 @@ Upstream changes are reviewed regularly; dependency bumps arrive as Renovate PRs
 
 | App | Upstream version | Image (tag + digest) |
 |---|---|---|
-| tasiomind-n8n | 2.42.4 | `n8nio/n8n:2.42.4@sha256:9c086…1527c4e` |
-| tasiomind-anythingllm | 1.17.0 | `mintplexlabs/anythingllm:1.17.0@sha256:f26f30…292ecfff` |
-| tasiomind-ollama | 0.40.0 | `ollama/ollama:0.40.0@sha256:1bef63…4ccc18e1687` |
-| tasiomind-grafana | 13.2.3 | `grafana/grafana:13.2.3@sha256:b28bae…62f9a23f9e572` |
-| tasiomind-uptime-kuma | 2.5.5 | `louislam/uptime-kuma:2.5.5@sha256:c74379…101f45a0e1fbe` |
 | tasiomind-neo4j | 5.26.31 LTS (Community) | `neo4j:5.26.31-community@sha256:c7d25c…2237c67ce8069` |
+
+Previously shipped apps already available in the official Umbrel App Store
+(n8n 2.42.4, AnythingLLM 1.17.0, Ollama 0.40.0, Grafana 13.2.3, Uptime Kuma 2.5.5)
+were removed from this store on 2026-10-11 to avoid duplication; their manifests
+had been reused 1:1 from `getumbrel/umbrel-apps@aa3c4e9`.
 
 Full digests are in each app's `docker-compose.yml`. No `latest` tags anywhere.

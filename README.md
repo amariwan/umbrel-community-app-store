@@ -1,7 +1,9 @@
 # tasiomind App Store for umbrelOS
 
 Community App Store for [umbrelOS](https://umbrel.com) 2.x — a small, curated,
-low-maintenance set of self-hosted apps: local AI, automation, and monitoring.
+low-maintenance store. It intentionally contains **no duplicates of the official
+App Store**: n8n, AnythingLLM, Ollama, Grafana and Uptime Kuma are already
+available officially and are therefore not shipped here.
 
 - Store ID: `tasiomind` · Store name: `tasiomind` · App prefix: `tasiomind-`
 - Repository: https://github.com/amariwan/umbrel-community-app-store
@@ -13,11 +15,6 @@ low-maintenance set of self-hosted apps: local AI, automation, and monitoring.
 
 | App | What | UI port |
 |---|---|---|
-| tasiomind-n8n | Workflow automation (fair-code) | 5678 |
-| tasiomind-anythingllm | AI workspace: chat, docs, agents | 3031 |
-| tasiomind-ollama | Local LLM runtime (DeepSeek-R1, Llama, …) | 11434 |
-| tasiomind-grafana | Monitoring dashboards (default login `admin`/`admin` — change it) | 3030 |
-| tasiomind-uptime-kuma | Uptime monitoring, 70+ notifiers | 8385 |
 | tasiomind-neo4j | Graph database (5.26 LTS Community, incl. APOC) | 7474 |
 
 ## Installation
@@ -26,8 +23,7 @@ low-maintenance set of self-hosted apps: local AI, automation, and monitoring.
    (or **Settings**, depending on your umbrelOS version).
 2. Add this URL: `https://github.com/amariwan/umbrel-community-app-store`
 3. The **tasiomind App Store** appears alongside the official store.
-4. Install any app with one click. Start light (e.g. Uptime Kuma) on small devices;
-   Ollama model choice must fit your device RAM.
+4. Install the app with one click.
 
 ## Updates
 
@@ -42,9 +38,7 @@ low-maintenance set of self-hosted apps: local AI, automation, and monitoring.
 
 - Official Umbrel app conventions: `app_proxy` routing, `${APP_DATA_DIR}` persistence,
   `exports.sh` + `derive_entropy` for generated secrets — **no hardcoded secrets**.
-- No privileged containers, no host networking, no host-port publishing.
-  Exception: AnythingLLM keeps the official packaging's `SYS_ADMIN` capability for its
-  document collector (Chromium sandbox), enforced by the validator allowlist.
+- No privileged containers, no host networking, no host-port publishing, no extra capabilities.
 - Data directories are never overwritten; upgrades keep `${APP_DATA_DIR}` volumes.
 
 ## Known limitations
@@ -54,9 +48,7 @@ low-maintenance set of self-hosted apps: local AI, automation, and monitoring.
   a self-managed port mapping.
 - **Neo4j admin password is auto-generated** on install. Retrieve it on the device, e.g.
   via the app's runtime environment (`NEO4J_AUTH`), or back up `${APP_DATA_DIR}` regularly.
-- **Grafana ships with default credentials `admin`/`admin`** (upstream convention) —
-  change them on first login.
-- **Ollama model RAM**: check model requirements first; oversized models can hang small devices.
+- Neo4j heap is capped at 1G in compose; raise only on capable hardware.
 - Gallery images are upstream project logos as placeholders until on-device screenshots exist.
 - **No on-device install test has been performed yet** (see [docs/TESTING.md](docs/TESTING.md)).
   umbrelOS 2.x compatibility follows from official-packaging reuse, not from a device run.
